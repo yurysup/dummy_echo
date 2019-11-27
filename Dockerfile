@@ -1,8 +1,11 @@
-FROM centos:latest
-RUN yum install -y nc
+FROM python:latest
 
-COPY ./boot.sh /
-RUN chmod +x /boot.sh
-ENTRYPOINT ["/boot.sh"]
+RUN pip3 install selectors
+RUN pip3 install redis
+
+COPY ./socket_echo.py /
+
+CMD [ "python", "./socket_echo.py", "0.0.0.0", "5000" ]
 
 EXPOSE 5000
+
